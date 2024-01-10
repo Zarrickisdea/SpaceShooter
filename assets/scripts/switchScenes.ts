@@ -4,7 +4,7 @@ const { ccclass, property } = _decorator;
 @ccclass('switchScenes')
 export class switchScenes extends Component {
 
-    startGame() {
+    private startGame() {
         console.log('start game');
         director.loadScene('Game');
     }
