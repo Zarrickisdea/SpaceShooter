@@ -1,0 +1,38 @@
+{
+  "__version__": "1.0.6",
+  "general": {
+    "designResolution": {
+      "fitHeight": true,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "custom_joint_texture_layouts": [],
+  "physics": {
+    "collisionGroups": [
+      {
+        "index": 1,
+        "name": "Player"
+      },
+      {
+        "index": 2,
+        "name": "Enemy"
+      },
+      {
+        "index": 3,
+        "name": "pBullet"
+      },
+      {
+        "index": 4,
+        "name": "eBullet"
+      }
+    ],
+    "collisionMatrix": {
+      "0": 1,
+      "1": 20,
+      "2": 10,
+      "3": 4,
+      "4": 2
+    }
+  }
+}
