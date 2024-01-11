@@ -40,8 +40,8 @@
       "__type__": "cc.Quat",
       "x": 0,
       "y": 0,
-      "z": 0,
-      "w": 1
+      "z": 0.7071067811865475,
+      "w": 0.7071067811865476
     },
     "_lscale": {
       "__type__": "cc.Vec3",
@@ -55,7 +55,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 0
+      "z": 90
     },
     "_id": ""
   },
@@ -141,6 +141,7 @@
       "__id__": 0
     },
     "fileId": "00ZPeV0UFDcIj2GZXZR7Ct",
+    "instance": null,
     "targetOverrides": null
   }
 ]
