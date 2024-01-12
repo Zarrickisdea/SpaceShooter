@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, instantiate, Prefab, random, Layout } from 'cc';
+import { _decorator, Component, Node, instantiate, Prefab, random, Layout, tween, Vec3 } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('enemySpawner')
@@ -6,6 +6,9 @@ export class enemySpawner extends Component {
     
         @property
         private spawnInterval: number = 0;
+
+        @property({range:[1, 11]})
+        private shipsPerRow: number = 0;
     
         @property({type: Prefab})
         private enemyPrefabs: Prefab[] = [];
@@ -16,36 +19,67 @@ export class enemySpawner extends Component {
         @property({range: [0, 100]})
         private skipPatternChance: number = 0;
 
-        private skipRow: boolean = false;
-        private skipPattern: boolean = false;
-
         @property({type: Layout})
         private rowLayout: Layout = null;
+
+        private skipRow: boolean = false;
+        private skipPattern: boolean = false;
+        private moveDuration: number = 5;
+        private timer: number = 0;
     
         private spawnEnemies() {
-            let shipNumber = this.enemyPrefabs.length;
+            let shipNumber = this.shipsPerRow;
             this.skipRow = random() < (this.skipRowChance / 100);
+
+            if (this.skipRow) {
+                console.log("skipRow: " + this.skipRow);
+                return;
+            }
+
             this.skipPattern = random() < (this.skipPatternChance / 100);
 
-            console.log("skipPattern: " + this.skipPattern);
-
             if (this.skipPattern) {
+                console.log("skipPattern: " + this.skipPattern);
                 shipNumber = shipNumber / 2;
                 this.rowLayout.spacingX = this.rowLayout.spacingX * 6;
             }
 
-            if (!this.skipRow) {
-                for (let i = 0; i < shipNumber; ++i) {
-                    this.scheduleOnce(() => {
-                        this.spawnEnemy(i);
-                    }, this.spawnInterval * i);
-                }
+            for (let i = 0; i < shipNumber; ++i) {
+                this.scheduleOnce(() => {
+                    this.spawnEnemy();
+                }, this.spawnInterval * i);
             }
         }
 
-        private spawnEnemy(index: number) {
+        private spawnEnemy() {
+            let index = Math.floor(random() * this.enemyPrefabs.length);
             let enemy = instantiate(this.enemyPrefabs[index]);
             enemy.setParent(this.node);
+        }
+
+        private moveShips() {
+            const originalPos = this.rowLayout.node.position;
+    
+
+            tween(this.rowLayout.node)
+                .to(this.moveDuration, { position: new Vec3(originalPos.x - 100, originalPos.y, 0) })
+                .call(() => {
+
+                    this.resetShipsPosition(originalPos);
+    
+
+                    this.scheduleOnce(() => {
+                        this.moveShips();
+                    }, this.moveDuration);
+                })
+                .start();
+        }
+    
+        private resetShipsPosition(originalPos: Vec3) {
+
+            tween(this.rowLayout.node)
+                .to(this.moveDuration, { position: originalPos })
+                .start();
         }
     
         protected onLoad() {
@@ -58,10 +92,13 @@ export class enemySpawner extends Component {
     
         protected start() {
             this.spawnEnemies();
+
+            this.scheduleOnce(() => {
+                this.moveShips();
+            }, this.moveDuration);
         }
     
-        protected update(dt) {
-            
+        protected update(deltaTime: number) {
         }
 }
 
