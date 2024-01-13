@@ -5,14 +5,14 @@ const { ccclass, property } = _decorator;
 export class Movement extends Component {
 
     @property
-    xSpeed: number = 0;
+    private xSpeed: number = 0;
 
-    moveLeft:number = 0;
-    moveRight:number = 0;
+    private moveLeft:number = 0;
+    private moveRight:number = 0;
 
-    touchContentWidth: number = 0;
+    private touchContentWidth: number = 0;
 
-    moveJet(event, isMoving: boolean) {
+    private moveJet(event, isMoving: boolean) {
         switch (event.keyCode) {
             case KeyCode.KEY_A:
                 this.moveLeft = isMoving ? 1 : 0;
@@ -23,7 +23,7 @@ export class Movement extends Component {
         }
     }
 
-    touchMoveJet(event, isMoving: boolean) {
+    private touchMoveJet(event, isMoving: boolean) {
         if (event.getLocationX() < this.touchContentWidth / 2) {
             this.moveLeft = isMoving ? 1 : 0;
         } else if (event.getLocationX() > this.touchContentWidth / 2) {
