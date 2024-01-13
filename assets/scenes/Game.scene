@@ -572,7 +572,7 @@
     "_enabled": true,
     "__prefab": null,
     "_resizeMode": 0,
-    "_layoutType": 3,
+    "_layoutType": 1,
     "_cellSize": {
       "__type__": "cc.Size",
       "width": 40,
@@ -581,16 +581,16 @@
     "_startAxis": 0,
     "_paddingLeft": 30,
     "_paddingRight": 30,
-    "_paddingTop": 25,
-    "_paddingBottom": 25,
-    "_spacingX": 20,
+    "_paddingTop": 20,
+    "_paddingBottom": 20,
+    "_spacingX": 10,
     "_spacingY": 50,
     "_verticalDirection": 1,
     "_horizontalDirection": 0,
     "_constraint": 0,
     "_constraintNum": 2,
     "_affectedByScale": true,
-    "_isAlign": false,
+    "_isAlign": true,
     "_id": "a3ZL88+ExBur870w9W6FDD"
   },
   {
@@ -604,7 +604,8 @@
     "_enabled": true,
     "__prefab": null,
     "spawnInterval": 0,
-    "shipsPerRow": 10,
+    "moveDuration": 1,
+    "shipsPerRow": 12,
     "enemyPrefabs": [
       {
         "__uuid__": "719040f9-bce4-420d-847d-e401a78b5b91",
@@ -706,7 +707,7 @@
     "_enabled": true,
     "__prefab": null,
     "_resizeMode": 0,
-    "_layoutType": 3,
+    "_layoutType": 1,
     "_cellSize": {
       "__type__": "cc.Size",
       "width": 40,
@@ -715,16 +716,16 @@
     "_startAxis": 0,
     "_paddingLeft": 30,
     "_paddingRight": 30,
-    "_paddingTop": 25,
-    "_paddingBottom": 25,
-    "_spacingX": 20,
+    "_paddingTop": 20,
+    "_paddingBottom": 20,
+    "_spacingX": 10,
     "_spacingY": 50,
     "_verticalDirection": 1,
     "_horizontalDirection": 0,
     "_constraint": 0,
     "_constraintNum": 2,
     "_affectedByScale": true,
-    "_isAlign": false,
+    "_isAlign": true,
     "_id": "d3by/Gt/xG7KPbgfkHwGHf"
   },
   {
@@ -738,7 +739,8 @@
     "_enabled": true,
     "__prefab": null,
     "spawnInterval": 0,
-    "shipsPerRow": 10,
+    "moveDuration": 1,
+    "shipsPerRow": 12,
     "enemyPrefabs": [
       {
         "__uuid__": "719040f9-bce4-420d-847d-e401a78b5b91",
@@ -840,7 +842,7 @@
     "_enabled": true,
     "__prefab": null,
     "_resizeMode": 0,
-    "_layoutType": 3,
+    "_layoutType": 1,
     "_cellSize": {
       "__type__": "cc.Size",
       "width": 40,
@@ -849,16 +851,16 @@
     "_startAxis": 0,
     "_paddingLeft": 30,
     "_paddingRight": 30,
-    "_paddingTop": 25,
-    "_paddingBottom": 25,
-    "_spacingX": 20,
+    "_paddingTop": 20,
+    "_paddingBottom": 20,
+    "_spacingX": 10,
     "_spacingY": 50,
     "_verticalDirection": 1,
     "_horizontalDirection": 0,
     "_constraint": 0,
     "_constraintNum": 2,
     "_affectedByScale": true,
-    "_isAlign": false,
+    "_isAlign": true,
     "_id": "90Vaf+JblEp4JKI+623qyA"
   },
   {
@@ -872,7 +874,8 @@
     "_enabled": true,
     "__prefab": null,
     "spawnInterval": 0,
-    "shipsPerRow": 10,
+    "moveDuration": 1,
+    "shipsPerRow": 12,
     "enemyPrefabs": [
       {
         "__uuid__": "719040f9-bce4-420d-847d-e401a78b5b91",

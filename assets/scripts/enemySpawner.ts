@@ -7,6 +7,9 @@ export class enemySpawner extends Component {
         @property
         private spawnInterval: number = 0;
 
+        @property({range: [1, 5]})
+        private moveDuration: number = 1;
+
         @property({range:[1, 11]})
         private shipsPerRow: number = 0;
     
@@ -24,24 +27,22 @@ export class enemySpawner extends Component {
 
         private skipRow: boolean = false;
         private skipPattern: boolean = false;
-        private moveDuration: number = 5;
-        private timer: number = 0;
     
         private spawnEnemies() {
             let shipNumber = this.shipsPerRow;
             this.skipRow = random() < (this.skipRowChance / 100);
 
             if (this.skipRow) {
-                console.log("skipRow: " + this.skipRow);
+                // console.log("skipRow: " + this.skipRow);
                 return;
             }
 
             this.skipPattern = random() < (this.skipPatternChance / 100);
 
             if (this.skipPattern) {
-                console.log("skipPattern: " + this.skipPattern);
+                // console.log("skipPattern: " + this.skipPattern);
                 shipNumber = shipNumber / 2;
-                this.rowLayout.spacingX = this.rowLayout.spacingX * 6;
+                this.rowLayout.spacingX = this.rowLayout.spacingX * 10;
             }
 
             for (let i = 0; i < shipNumber; ++i) {
@@ -57,28 +58,43 @@ export class enemySpawner extends Component {
             enemy.setParent(this.node);
         }
 
-        private moveShips() {
+        private moveShips(shiftNumber: number, direction: number) {
             const originalPos = this.rowLayout.node.position;
-    
+            // console.log("moveShips");
+            // console.log("originalPos: " + originalPos);
+
+            const targetX = originalPos.x + (shiftNumber * direction);
 
             tween(this.rowLayout.node)
-                .to(this.moveDuration, { position: new Vec3(originalPos.x - 100, originalPos.y, 0) })
+                .to(this.moveDuration, { position: new Vec3(targetX, originalPos.y, 0) })
                 .call(() => {
 
-                    this.resetShipsPosition(originalPos);
-    
+                    // console.log("olddirection: " + direction);
 
+                    if (direction === -1) {
+                        direction = 1;
+                    }
+                    else {
+                        direction = -1;
+                    }
+
+                    // console.log("newdirection: " + direction);
+
+                    this.resetShipsXPosition(originalPos);
+    
                     this.scheduleOnce(() => {
-                        this.moveShips();
+                        this.moveShips(100, direction);
                     }, this.moveDuration);
                 })
                 .start();
         }
     
-        private resetShipsPosition(originalPos: Vec3) {
+        private resetShipsXPosition(originalPos: Vec3) {
+            // console.log("resetShipsPosition");
+            // console.log("originalPos: " + originalPos);
 
             tween(this.rowLayout.node)
-                .to(this.moveDuration, { position: originalPos })
+                .to(this.moveDuration, { position: new Vec3(0, originalPos.y, 0) })
                 .start();
         }
     
@@ -94,7 +110,7 @@ export class enemySpawner extends Component {
             this.spawnEnemies();
 
             this.scheduleOnce(() => {
-                this.moveShips();
+                this.moveShips(100, -1);
             }, this.moveDuration);
         }
     
