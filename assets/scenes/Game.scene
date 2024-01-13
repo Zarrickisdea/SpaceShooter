@@ -751,7 +751,7 @@
         "__expectedType__": "cc.Prefab"
       }
     ],
-    "skipRowChance": 0,
+    "skipRowChance": 100,
     "skipPatternChance": 25,
     "rowLayout": {
       "__id__": 23
@@ -886,7 +886,7 @@
         "__expectedType__": "cc.Prefab"
       }
     ],
-    "skipRowChance": 0,
+    "skipRowChance": 100,
     "skipPatternChance": 100,
     "rowLayout": {
       "__id__": 27
