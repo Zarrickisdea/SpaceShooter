@@ -605,7 +605,7 @@
     "__prefab": null,
     "spawnInterval": 0,
     "moveDuration": 1,
-    "shipsPerRow": 12,
+    "shipsPerRow": 11,
     "enemyPrefabs": [
       {
         "__uuid__": "719040f9-bce4-420d-847d-e401a78b5b91",
@@ -751,7 +751,7 @@
         "__expectedType__": "cc.Prefab"
       }
     ],
-    "skipRowChance": 100,
+    "skipRowChance": 30,
     "skipPatternChance": 25,
     "rowLayout": {
       "__id__": 23
@@ -886,7 +886,7 @@
         "__expectedType__": "cc.Prefab"
       }
     ],
-    "skipRowChance": 100,
+    "skipRowChance": 20,
     "skipPatternChance": 100,
     "rowLayout": {
       "__id__": 27

@@ -15,10 +15,9 @@ export class shipShoot extends Component {
         let activeBullet = this.bulletPool.find(bullet => !bullet.active);
         if (activeBullet) {
             activeBullet.active = true;
-            activeBullet.setPosition(this.node.getPosition());
         } else {
             let bullet = this.createBullet();
-            bullet.setPosition(this.node.getPosition());
+            bullet.active = true;
         }
     }
 
@@ -31,26 +30,27 @@ export class shipShoot extends Component {
 
     private createBullet(): Node {
         let bullet = instantiate(this.bulletPrefab);
-        bullet.setParent(this.node, true);
+        bullet.parent = this.canvas;
+        bullet.position = new Vec3(this.node.position.x, this.node.parent.position.y, 0);
+        bullet.active = false;
         this.bulletPool.push(bullet);
         return bullet;
     }
 
     protected onLoad() {
         this.canvas = director.getScene().getChildByName("Canvas");
-
-        this.makeBulletPool();
     }
 
     protected start() {
-
+        this.makeBulletPool();
     }
 
     protected update(deltaTime: number) {
-        // every 1 to 4 seconds, shoot a bullet
         this.shootInterval += deltaTime;
-        if (this.shootInterval > 1 + Math.random() * 10) {
-            this.shootBullet();
+        if (this.shootInterval >= 3) {
+            this.scheduleOnce(() => {
+                this.shootBullet();
+            }, this.shootInterval);
             this.shootInterval = 0;
         }
     }

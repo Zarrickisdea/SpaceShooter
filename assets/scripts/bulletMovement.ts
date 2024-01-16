@@ -11,12 +11,13 @@ export class bulletMovement extends Component {
         
         private startTween() {
             this.fallingTween = tween(this.node)
-                .by(0.5, { position: new Vec3(0, this.canvasHeight, 0) }, { easing: 'sineOut' })
-                .call(() => {
-                    this.node.active = false;
-                })
-                .start();
+            .by(0.5, {position: new Vec3(0, this.speed, 0)}, {easing: 'sineOut'})
+            .call(() => {
+                this.node.active = false;
+            })
+            .start();
         }
+
         private cancelTween() {
             if (this.fallingTween){
                 this.fallingTween.stop();
@@ -39,13 +40,6 @@ export class bulletMovement extends Component {
         }
     
         protected update(deltaTime: number) {
-            if (this.node.active == true)
-            {
-                if (this.node.position.y < -this.canvasHeight / 2)
-                {
-                    this.node.active = false;
-                }
-            }
         }
 
         protected onDisable(): void {
