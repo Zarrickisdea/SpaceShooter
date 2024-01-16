@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, instantiate, Vec3, game, director, Canvas, Prefab } from 'cc';
+import { _decorator, Component, Node, instantiate, Vec3, game, director, Canvas, Prefab, Quat } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('shipShoot')
@@ -8,8 +8,8 @@ export class shipShoot extends Component {
     private canvas: Node = null;
     private bulletPool: Node[] = [];
 
-    @property({ type: Prefab })
-    private bulletPrefab: Prefab = null;
+    @property({ type: Node })
+    private bulletNode: Node = null;
 
     private shootBullet() {
         let activeBullet = this.bulletPool.find(bullet => !bullet.active);
@@ -22,16 +22,14 @@ export class shipShoot extends Component {
     }
 
     private makeBulletPool() {
-        for (let i = 0; i < 2; i++) {
-            let bullet = this.createBullet();
-            bullet.active = false;
-        }
+        let bullet = this.createBullet();
+        bullet.active = false;
     }
 
     private createBullet(): Node {
-        let bullet = instantiate(this.bulletPrefab);
-        bullet.parent = this.canvas;
-        bullet.position = new Vec3(this.node.position.x, this.node.parent.position.y, 0);
+        let bullet = this.bulletNode;
+        bullet.setParent(this.canvas);
+        bullet.setWorldPosition(this.node.getWorldPosition().x, this.node.getWorldPosition().y, 0);
         bullet.active = false;
         this.bulletPool.push(bullet);
         return bullet;
@@ -47,10 +45,12 @@ export class shipShoot extends Component {
 
     protected update(deltaTime: number) {
         this.shootInterval += deltaTime;
-        if (this.shootInterval >= 3) {
+
+        if (this.shootInterval >= Math.random() * 10) {
             this.scheduleOnce(() => {
                 this.shootBullet();
             }, this.shootInterval);
+
             this.shootInterval = 0;
         }
     }

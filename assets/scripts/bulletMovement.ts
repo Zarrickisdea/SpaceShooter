@@ -4,17 +4,13 @@ const { ccclass, property } = _decorator;
 @ccclass('bulletMovement')
 export class bulletMovement extends Component {
     
-        private speed: number = -300;
         private canvasHeight: number = 0;
 
         private fallingTween: any = null;
         
         private startTween() {
             this.fallingTween = tween(this.node)
-            .by(0.5, {position: new Vec3(0, this.speed, 0)}, {easing: 'sineOut'})
-            .call(() => {
-                this.node.active = false;
-            })
+            .to(10, {position: new Vec3(0, -this.canvasHeight, 0)}, {easing: 'sineOut'})
             .start();
         }
 
@@ -40,6 +36,9 @@ export class bulletMovement extends Component {
         }
     
         protected update(deltaTime: number) {
+            // if (this.node.position.y < -this.canvasHeight / 2) {
+            //     this.node.active = false;
+            // }
         }
 
         protected onDisable(): void {
