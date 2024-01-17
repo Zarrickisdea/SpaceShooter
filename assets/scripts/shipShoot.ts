@@ -4,34 +4,26 @@ const { ccclass, property } = _decorator;
 @ccclass('shipShoot')
 export class shipShoot extends Component {
 
-    private shootInterval: number = 0;
+    private shootInterval: number = 10;
     private canvas: Node = null;
-    private bulletPool: Node[] = [];
 
-    @property({ type: Node })
-    private bulletNode: Node = null;
+    private activeBullet: Node = null;
 
     private shootBullet() {
-        let activeBullet = this.bulletPool.find(bullet => !bullet.active);
-        if (activeBullet) {
-            activeBullet.active = true;
+        this.activeBullet = this.createBullet();
+        if (this.activeBullet) {
+            this.activeBullet.active = true;
         } else {
-            let bullet = this.createBullet();
-            bullet.active = true;
+            this.activeBullet = this.createBullet();
+            this.activeBullet.active = true;
         }
     }
 
-    private makeBulletPool() {
-        let bullet = this.createBullet();
-        bullet.active = false;
-    }
-
     private createBullet(): Node {
-        let bullet = this.bulletNode;
+        let bullet = instantiate(this.node.children[0]);
         bullet.setParent(this.canvas);
         bullet.setWorldPosition(this.node.getWorldPosition().x, this.node.getWorldPosition().y, 0);
         bullet.active = false;
-        this.bulletPool.push(bullet);
         return bullet;
     }
 
@@ -40,19 +32,7 @@ export class shipShoot extends Component {
     }
 
     protected start() {
-        this.makeBulletPool();
-    }
-
-    protected update(deltaTime: number) {
-        this.shootInterval += deltaTime;
-
-        if (this.shootInterval >= Math.random() * 10) {
-            this.scheduleOnce(() => {
-                this.shootBullet();
-            }, this.shootInterval);
-
-            this.shootInterval = 0;
-        }
+        this.schedule(this.shootBullet, Math.random() * this.shootInterval);
     }
 }
 
