@@ -3,8 +3,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass('enemySpawner')
 export class enemySpawner extends Component {
-    
-        @property
+        @property({range: [0, 5]})
         private spawnInterval: number = 0;
 
         @property({range: [1, 5]})
@@ -104,11 +103,11 @@ export class enemySpawner extends Component {
                 this.enabled = false;
                 return;
             }
+
+            this.spawnEnemies();
         }
     
         protected start() {
-            this.spawnEnemies();
-
             this.scheduleOnce(() => {
                 this.moveShips(100, -1);
             }, this.moveDuration);

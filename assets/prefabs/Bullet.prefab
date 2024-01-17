@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "alienship3",
+    "_name": "Bullet",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_native": "",
@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "alienship3",
+    "_name": "Bullet",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -25,13 +25,10 @@
       },
       {
         "__id__": 4
-      },
-      {
-        "__id__": 6
       }
     ],
     "_prefab": {
-      "__id__": 8
+      "__id__": 6
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -48,8 +45,8 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 0.7,
-      "y": 0.7,
+      "x": 1,
+      "y": 1,
       "z": 1
     },
     "_mobility": 0,
@@ -76,8 +73,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 95,
-      "height": 98
+      "width": 107,
+      "height": 40
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -88,7 +85,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "69WPL958RLmrhAbpzTo/td"
+    "fileId": "f4hV9uW79MBKliGz3N07Pi"
   },
   {
     "__type__": "cc.Sprite",
@@ -113,7 +110,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "b2a4e7e4-20f3-45c4-8e54-2d0a5259b76a@f9941",
+      "__uuid__": "cd7ff9b1-1171-4eec-b3ed-ee85ebdc2607@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -133,29 +130,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "13jvB1EMZMbpTgaC+i7HE+"
-  },
-  {
-    "__type__": "f7171e0OX1EmqKE2DEanHZu",
-    "_name": "",
-    "_objFlags": 0,
-    "__editorExtras__": {},
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "__prefab": {
-      "__id__": 7
-    },
-    "bulletPrefab": {
-      "__uuid__": "601a4853-b560-4ee3-8b96-7add08ce15a3",
-      "__expectedType__": "cc.Prefab"
-    },
-    "_id": ""
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "54zxmS/4hB+7HpDngckiIz"
+    "fileId": "82UJ5sxGNAoJ0XF23jfxEx"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -165,8 +140,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "00ZPeV0UFDcIj2GZXZR7Ct",
-    "instance": null,
+    "fileId": "efmNzv9sFIspA5mfLi9sf2",
     "targetOverrides": null
   }
 ]
