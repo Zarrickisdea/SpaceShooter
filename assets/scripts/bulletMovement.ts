@@ -1,4 +1,5 @@
 import { _decorator, Component, game, Node, tween, Vec3 } from 'cc';
+import { shipShoot } from './shipShoot';
 const { ccclass, property } = _decorator;
 
 @ccclass('bulletMovement')
@@ -7,6 +8,8 @@ export class bulletMovement extends Component {
         private canvasHeight: number = 0;
 
         private fallingTween: any = null;
+
+        public attachedShip: shipShoot = null;
         
         private startTween() {
             this.fallingTween = tween(this.node)
@@ -42,6 +45,8 @@ export class bulletMovement extends Component {
 
         protected onDisable(): void {
             this.cancelTween();
+            this.attachedShip.currentlyShooting = false;
+            this.attachedShip.bulletPool.push(this.node);
         }
 }
 
