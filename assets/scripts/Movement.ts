@@ -101,7 +101,7 @@ export class Movement extends Component {
     protected onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D) {
         if (selfCollider.node.getComponent(Movement) && (otherCollider.node.getComponent(shipShoot) || otherCollider.node.getComponent(bulletMovement))) {
             setTimeout(() => {
-                selfCollider.node.destroy();
+                selfCollider.node.active = false;
             }, 1);
             director.loadScene(LevelNameStrings.GAME_OVER);
         }
