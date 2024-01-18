@@ -25,12 +25,12 @@ export class playerShoot extends Component {
     }
 
     private getPlayerBullet(): Node {
-        for (let i = 0; i < this.playerBulletPool.length; i++) {
-            if (!this.playerBulletPool[i].activeInHierarchy) {
-                return this.playerBulletPool[i];
-            }
+        let bullet = this.playerBulletPool.pop();
+        if (!bullet) {
+            bullet = this.createPlayerBullet();
+            return bullet;
         }
-        return this.createPlayerBullet();
+        return bullet;
     }
 
     private shoot(event) {
@@ -39,7 +39,15 @@ export class playerShoot extends Component {
             bullet.setParent(this.canvas);
             bullet.setWorldPosition(this.node.worldPosition);
             bullet.active = true;
-        }, 5);
+        }, 0.5);
+    }
+
+    private stopShoot() {
+        this.unscheduleAllCallbacks();
+    }
+
+    public returnPlayerBullet(bullet: Node) {
+        this.playerBulletPool.push(bullet);
     }
 
     protected onLoad() {
@@ -48,8 +56,8 @@ export class playerShoot extends Component {
 
         input.on(Input.EventType.TOUCH_START, this.shoot, this);
         input.on(Input.EventType.TOUCH_MOVE, this.shoot, this);
-        input.on(Input.EventType.TOUCH_END, this.shoot, this);
-        input.on(Input.EventType.TOUCH_CANCEL, this.shoot, this);
+        input.on(Input.EventType.TOUCH_END, this.stopShoot, this);
+        input.on(Input.EventType.TOUCH_CANCEL, this.stopShoot, this);
     }
 
     protected start() {
