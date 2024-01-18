@@ -11,8 +11,6 @@ export class buttonTest extends Component {
     private testThing2: Prefab = null;
 
     private testFunction() {
-        let bullet = instantiate(this.testThing2);
-        bullet.setParent(this.testThing);
     }
 
     protected onLoad() {
