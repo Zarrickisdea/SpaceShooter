@@ -34,7 +34,7 @@ export class Movement extends Component {
     private touchMove(event): void {
         let touchPos = event.getLocationInView();
         let localPos = this.canvasUITransform.convertToNodeSpaceAR(new Vec3(touchPos.x, touchPos.y, 0));
-        this.node.setPosition(new Vec3(localPos.x, -localPos.y, 0));
+        this.node.setPosition(new Vec3(localPos.x, localPos.y, 0));
     }
     
     private touchCancel(event): void {

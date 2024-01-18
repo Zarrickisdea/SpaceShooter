@@ -1,19 +1,36 @@
-import { _decorator, Component, Node, tween, Vec3 } from 'cc';
+import { _decorator, Component, director, Node, tween, Vec3 } from 'cc';
 import { playerShoot } from './playerShoot';
 const { ccclass, property } = _decorator;
 
 @ccclass('playerBulletMovement')
 export class playerBulletMovement extends Component {
     private player: playerShoot = null;
+    private canvas: Node = null;
+
+    private firingTween: any = null;
+
+    private startTween() {
+        this.firingTween = tween(this.node)
+        .to(1, {position: new Vec3(this.node.position.x, 720, 0)}, {easing: 'linear'})
+        .start();
+    }
+
+    private cancelTween() {
+        if (this.firingTween){
+            this.firingTween.stop();
+            this.firingTween = null;
+        }
+    }
 
     protected onLoad() {
-        this.player = this.node.parent.getComponent(playerShoot);
+        this.canvas = director.getScene().getChildByName('Canvas');
+        this.player = this.canvas.getComponentInChildren(playerShoot);
     }
 
     protected onEnable(): void {
-        tween(this.node)
-        .by(10, {position: new Vec3(0, 720, 0)})
-        .start();
+        this.cancelTween();
+
+        this.startTween();
     }
 
     protected start() {
@@ -27,7 +44,9 @@ export class playerBulletMovement extends Component {
     }
 
     protected onDisable(): void {
+        this.cancelTween();
         this.player.returnPlayerBullet(this.node);
+        console.log
     }
 }
 
