@@ -67,7 +67,8 @@ export class playerShoot extends Component {
         this.canvas = this.node.parent;
         this.makePlayerBulletPool();
 
-        if (sys.platform === sys.Platform.DESKTOP_BROWSER || EDITOR) {
+        // IF DESKTOP BROSWER OR SIMULATOR
+        if (sys.platform === sys.Platform.DESKTOP_BROWSER || sys.platform === sys.Platform.ANDROID) {
             input.on(Input.EventType.KEY_DOWN, this.shoot, this);
             input.on(Input.EventType.KEY_UP, this.stopShoot, this);
         } else if (sys.platform === sys.Platform.MOBILE_BROWSER) {
@@ -76,14 +77,6 @@ export class playerShoot extends Component {
             input.on(Input.EventType.TOUCH_END, this.stopShoot, this);
             input.on(Input.EventType.TOUCH_CANCEL, this.stopShoot, this);
         }
-    }
-
-    protected start() {
-
-    }
-
-    protected update(deltaTime: number) {
-
     }
 }
 

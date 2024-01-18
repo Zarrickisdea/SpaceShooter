@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, instantiate, Contact2DType, Collider2D, director, Canvas, Prefab, Quat, PhysicsSystem2D, UITransform } from 'cc';
+import { _decorator, Component, Node, instantiate, Contact2DType, Collider2D, director, Canvas, Prefab, Quat, PhysicsSystem2D, UITransform, RigidBody2D } from 'cc';
 import { bulletMovement } from './bulletMovement';
 import { playerBulletMovement } from './playerBulletMovement';
 import { enemySpawner } from './enemySpawner';
@@ -54,6 +54,7 @@ export class shipShoot extends Component {
     }
 
     protected onEnable(): void {
+        this.node.getComponent(RigidBody2D).enabled = true;
         this.collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
 
         PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
@@ -64,14 +65,10 @@ export class shipShoot extends Component {
     }
 
     protected onDisable(): void {
-        // check if the parent node of this node has any active children, if not, call respawnEnemies()
-        if (!this.node.parent.children.some(child => child.active)) {
-            this.node.parent.getComponent(enemySpawner).respawnEnemies();
-        }
-
         this.collider.off(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
 
         PhysicsSystem2D.instance.off(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
+        this.node.getComponent(RigidBody2D).enabled = false;
     }
 
     protected onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D) {

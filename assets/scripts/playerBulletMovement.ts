@@ -48,7 +48,6 @@ export class playerBulletMovement extends Component {
 
     protected onDisable(): void {
         this.cancelTween();
-        this.player.returnPlayerBullet(this.node);
     }
 }
 

@@ -96,10 +96,6 @@ export class enemySpawner extends Component {
                 .to(this.moveDuration, { position: new Vec3(0, originalPos.y, 0) })
                 .start();
         }
-
-        public respawnEnemies() {
-            this.spawnEnemies();
-        }
     
         protected onLoad() {
             if (!this.rowLayout) {
@@ -115,9 +111,6 @@ export class enemySpawner extends Component {
             this.scheduleOnce(() => {
                 this.moveShips(100, -1);
             }, this.moveDuration);
-        }
-    
-        protected lateUpdate(deltaTime: number) {
         }
 }
 

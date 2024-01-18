@@ -1,7 +1,8 @@
-import { _decorator, Component, Node, input, Input, KeyCode, UITransform, sys, Vec3, PhysicsSystem2D, BoxCollider2D, Contact2DType, Collider2D, IPhysics2DContact, director } from 'cc';
+import { _decorator, Component, Node, input, Input, KeyCode, UITransform, sys, Vec3, PhysicsSystem2D, Contact2DType, Collider2D, director } from 'cc';
 import { EDITOR } from 'cc/env';
 import { shipShoot } from './shipShoot';
 import { bulletMovement } from './bulletMovement';
+import { LevelNameStrings } from './LevelNameStrings';
 const { ccclass, property } = _decorator;
 
 @ccclass('Movement')
@@ -46,8 +47,6 @@ export class Movement extends Component {
     }
     
     protected onLoad(): void {
-        // PhysicsSystem2D.instance.enable = true;
-        PhysicsSystem2D.instance.debugDrawFlags = 1;
         this.canvasUITransform = this.node.parent.getComponent(UITransform);
         
         if (sys.platform === sys.Platform.DESKTOP_BROWSER || EDITOR) {
@@ -99,9 +98,9 @@ export class Movement extends Component {
         }
     }
 
-    protected onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
+    protected onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D) {
         if (selfCollider.node.getComponent(Movement) && (otherCollider.node.getComponent(shipShoot) || otherCollider.node.getComponent(bulletMovement))) {
-            director.loadScene('Start');
+            director.loadScene(LevelNameStrings.START);
         }
     }
 }
