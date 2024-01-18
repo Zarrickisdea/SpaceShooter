@@ -13,7 +13,7 @@ export class bulletMovement extends Component {
         
         private startTween() {
             this.fallingTween = tween(this.node)
-            .to(10, {position: new Vec3(this.node.position.x, -this.canvasHeight, 0)}, {easing: 'linear'})
+            .to(5, {position: new Vec3(this.node.position.x, -this.canvasHeight, 0)}, {easing: 'linear'})
             .start();
         }
 
