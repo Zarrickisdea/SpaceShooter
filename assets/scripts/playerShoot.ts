@@ -1,4 +1,5 @@
-import { _decorator, Component, Node, Prefab, instantiate, Input, input, KeyCode, macro } from 'cc';
+import { _decorator, Component, Node, Prefab, instantiate, Input, input, KeyCode, macro, sys } from 'cc';
+import { EDITOR } from 'cc/env';
 const { ccclass, property } = _decorator;
 
 @ccclass('playerShoot')
@@ -41,11 +42,15 @@ export class playerShoot extends Component {
     }
 
     private shoot(event) {
-        this.schedule(this.shootBullet, 0.2, macro.REPEAT_FOREVER, 0.1);
+        if (event.type === Input.EventType.TOUCH_START || event.keyCode === KeyCode.SPACE || event.type === Input.EventType.TOUCH_MOVE) {
+            this.schedule(this.shootBullet, 0.2, macro.REPEAT_FOREVER, 0.1);
+        }
     }
 
     private stopShoot(event) {
-        this.unscheduleAllCallbacks();
+        if (event.type === Input.EventType.TOUCH_END || event.keyCode === KeyCode.SPACE || event.type === Input.EventType.TOUCH_CANCEL) {
+            this.unschedule(this.shootBullet);
+        }
     }
 
     public returnPlayerBullet(bullet: Node) {
@@ -56,13 +61,15 @@ export class playerShoot extends Component {
         this.canvas = this.node.parent;
         this.makePlayerBulletPool();
 
-        input.on(Input.EventType.KEY_DOWN, this.shoot, this);
-        input.on(Input.EventType.KEY_UP, this.stopShoot, this);
-
-        input.on(Input.EventType.TOUCH_START, this.shoot, this);
-        input.on(Input.EventType.TOUCH_MOVE, this.shoot, this);
-        input.on(Input.EventType.TOUCH_END, this.stopShoot, this);
-        input.on(Input.EventType.TOUCH_CANCEL, this.stopShoot, this);
+        if (sys.platform === sys.Platform.DESKTOP_BROWSER || EDITOR) {
+            input.on(Input.EventType.KEY_DOWN, this.shoot, this);
+            input.on(Input.EventType.KEY_UP, this.stopShoot, this);
+        } else if (sys.platform === sys.Platform.MOBILE_BROWSER) {
+            input.on(Input.EventType.TOUCH_START, this.shoot, this);
+            input.on(Input.EventType.TOUCH_MOVE, this.shoot, this);
+            input.on(Input.EventType.TOUCH_END, this.stopShoot, this);
+            input.on(Input.EventType.TOUCH_CANCEL, this.stopShoot, this);
+        }
     }
 
     protected start() {

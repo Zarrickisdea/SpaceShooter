@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, input, Input, KeyCode, UITransform, sys, Vec3 } from 'cc';
+import { EDITOR } from 'cc/env';
 const { ccclass, property } = _decorator;
 
 @ccclass('Movement')
@@ -45,7 +46,7 @@ export class Movement extends Component {
     protected onLoad(): void {
         this.canvasUITransform = this.node.parent.getComponent(UITransform);
         
-        if (sys.platform === sys.Platform.DESKTOP_BROWSER) {
+        if (sys.platform === sys.Platform.DESKTOP_BROWSER || EDITOR) {
             input.on(Input.EventType.KEY_DOWN, (event) => this.moveJet(event, true), this);
             input.on(Input.EventType.KEY_UP, (event) => this.moveJet(event, false), this);
         } else if (sys.platform === sys.Platform.MOBILE_BROWSER) {
