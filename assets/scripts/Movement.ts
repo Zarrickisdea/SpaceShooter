@@ -1,5 +1,8 @@
-import { _decorator, Component, Node, input, Input, KeyCode, UITransform, sys, Vec3 } from 'cc';
+import { _decorator, Component, Node, input, Input, KeyCode, UITransform, sys, Vec3, PhysicsSystem2D, Contact2DType, Collider2D, director } from 'cc';
 import { EDITOR } from 'cc/env';
+import { shipShoot } from './shipShoot';
+import { bulletMovement } from './bulletMovement';
+import { LevelNameStrings } from './LevelNameStrings';
 const { ccclass, property } = _decorator;
 
 @ccclass('Movement')
@@ -57,7 +60,14 @@ export class Movement extends Component {
     }
 
     protected start(): void {
-        
+        let collider = this.getComponent(Collider2D);
+        if (collider) {
+            collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
+        }
+
+        if (PhysicsSystem2D.instance) {
+            PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
+        }
     }
 
     protected update(deltatime: number): void {
@@ -85,6 +95,12 @@ export class Movement extends Component {
         }
         if (this.moveDown) {
             this.node.setPosition(this.node.position.x, this.node.position.y - this.xSpeed, this.node.position.z);
+        }
+    }
+
+    protected onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D) {
+        if (selfCollider.node.getComponent(Movement) && (otherCollider.node.getComponent(shipShoot) || otherCollider.node.getComponent(bulletMovement))) {
+            director.loadScene(LevelNameStrings.GAME_OVER);
         }
     }
 }

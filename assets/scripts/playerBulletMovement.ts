@@ -1,17 +1,20 @@
-import { _decorator, Component, director, Node, tween, Vec3 } from 'cc';
+import { _decorator, Collider2D, Component, director, Node, tween, Vec3, Contact2DType, Collider, PhysicsSystem2D, UITransform } from 'cc';
 import { playerShoot } from './playerShoot';
 const { ccclass, property } = _decorator;
 
 @ccclass('playerBulletMovement')
 export class playerBulletMovement extends Component {
     private player: playerShoot = null;
-    private canvas: Node = null;
+    private canvas: UITransform = null;
 
     private firingTween: any = null;
 
+    @property
+    private moveSpeed: number = 0;
+
     private startTween() {
         this.firingTween = tween(this.node)
-        .to(1, {position: new Vec3(this.node.position.x, 720, 0)}, {easing: 'linear'})
+        .to(1, {position: new Vec3(this.node.position.x, this.canvas.height, 0)}, {easing: 'linear'})
         .start();
     }
 
@@ -23,7 +26,7 @@ export class playerBulletMovement extends Component {
     }
 
     protected onLoad() {
-        this.canvas = director.getScene().getChildByName('Canvas');
+        this.canvas = director.getScene().getChildByName('Canvas').getComponent(UITransform);
         this.player = this.canvas.getComponentInChildren(playerShoot);
     }
 
@@ -38,15 +41,13 @@ export class playerBulletMovement extends Component {
     }
 
     protected update(deltaTime: number) {
-        if (this.node.position.y > 360) {
+        if (this.node.position.y > this.canvas.height / 2) {
             this.node.active = false;
         }
     }
 
     protected onDisable(): void {
         this.cancelTween();
-        this.player.returnPlayerBullet(this.node);
-        console.log
     }
 }
 

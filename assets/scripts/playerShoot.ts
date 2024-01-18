@@ -8,14 +8,20 @@ export class playerShoot extends Component {
     @property({type: Prefab})
     private playerBulletPrefab: Prefab = null;
 
+    @property({range: [0, 1, 0.1], slide: true})
+    private shootInterval: number = 0;
+
+    @property({range: [0, 1, 0.1], slide: true})
+    private repeatInterval: number = 0;
+
     private playerBulletPool: Node[] = [];
 
     private canvas: Node = null;
 
     private createPlayerBullet(): Node {
         let bullet = instantiate(this.playerBulletPrefab);
-        bullet.active = false;
         this.node.addChild(bullet);
+        bullet.active = false;
         return bullet;
     }
 
@@ -43,7 +49,7 @@ export class playerShoot extends Component {
 
     private shoot(event) {
         if (event.type === Input.EventType.TOUCH_START || event.keyCode === KeyCode.SPACE || event.type === Input.EventType.TOUCH_MOVE) {
-            this.schedule(this.shootBullet, 0.2, macro.REPEAT_FOREVER, 0.1);
+            this.schedule(this.shootBullet, this.shootInterval, macro.REPEAT_FOREVER, this.repeatInterval);
         }
     }
 
@@ -61,7 +67,8 @@ export class playerShoot extends Component {
         this.canvas = this.node.parent;
         this.makePlayerBulletPool();
 
-        if (sys.platform === sys.Platform.DESKTOP_BROWSER || EDITOR) {
+        // IF DESKTOP BROSWER OR SIMULATOR
+        if (sys.platform === sys.Platform.DESKTOP_BROWSER || sys.platform === sys.Platform.ANDROID) {
             input.on(Input.EventType.KEY_DOWN, this.shoot, this);
             input.on(Input.EventType.KEY_UP, this.stopShoot, this);
         } else if (sys.platform === sys.Platform.MOBILE_BROWSER) {
@@ -70,14 +77,6 @@ export class playerShoot extends Component {
             input.on(Input.EventType.TOUCH_END, this.stopShoot, this);
             input.on(Input.EventType.TOUCH_CANCEL, this.stopShoot, this);
         }
-    }
-
-    protected start() {
-
-    }
-
-    protected update(deltaTime: number) {
-
     }
 }
 

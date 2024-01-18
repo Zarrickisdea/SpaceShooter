@@ -112,9 +112,6 @@ export class enemySpawner extends Component {
                 this.moveShips(100, -1);
             }, this.moveDuration);
         }
-    
-        protected update(deltaTime: number) {
-        }
 }
 
 

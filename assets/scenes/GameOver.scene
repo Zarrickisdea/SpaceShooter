@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.SceneAsset",
-    "_name": "Start",
+    "_name": "GameOver",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_native": "",
@@ -11,7 +11,7 @@
   },
   {
     "__type__": "cc.Scene",
-    "_name": "Start",
+    "_name": "GameOver",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -54,7 +54,7 @@
     "_globals": {
       "__id__": 21
     },
-    "_id": "7ad96d17-b887-4287-a385-af70342efb92"
+    "_id": "4afcec37-6896-4c37-9795-b1a29f708518"
   },
   {
     "__type__": "cc.Node",
@@ -438,7 +438,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
+      "width": 200,
       "height": 40
     },
     "_anchorPoint": {
@@ -468,7 +468,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "PLAY",
+    "_string": "MAIN MENU",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 29.96875,
@@ -623,7 +623,7 @@
     },
     "component": "",
     "_componentId": "e9bfcDhpUFAvosPXvqIgZXQ",
-    "handler": "loadLevelOne",
+    "handler": "loadStart",
     "customEventData": ""
   },
   {
