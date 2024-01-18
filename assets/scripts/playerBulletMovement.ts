@@ -36,10 +36,6 @@ export class playerBulletMovement extends Component {
         this.startTween();
     }
 
-    protected start() {
-
-    }
-
     protected update(deltaTime: number) {
         if (this.node.position.y > this.canvas.height / 2) {
             this.node.active = false;
@@ -47,6 +43,7 @@ export class playerBulletMovement extends Component {
     }
 
     protected onDisable(): void {
+        this.player.returnPlayerBullet(this.node);
         this.cancelTween();
     }
 }

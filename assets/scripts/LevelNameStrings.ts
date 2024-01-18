@@ -7,7 +7,7 @@ export class LevelNameStrings extends Component {
     public static readonly LEVEL_1: string = "Level 1";
     public static readonly LEVEL_2: string = "Level 2";
     public static readonly LEVEL_3: string = "Level 3";
-    public static readonly GAME_OVER: string = "Game Over";
+    public static readonly GAME_OVER: string = "GameOver";
 }
 
 

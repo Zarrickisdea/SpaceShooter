@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, input, Input, KeyCode, UITransform, sys, Vec3, PhysicsSystem2D, Contact2DType, Collider2D, director } from 'cc';
+import { _decorator, Component, Node, input, Input, KeyCode, UITransform, sys, Vec3, PhysicsSystem2D, Contact2DType, Collider2D, director, RigidBody2D } from 'cc';
 import { EDITOR } from 'cc/env';
 import { shipShoot } from './shipShoot';
 import { bulletMovement } from './bulletMovement';
@@ -52,7 +52,7 @@ export class Movement extends Component {
         if (sys.platform === sys.Platform.DESKTOP_BROWSER || EDITOR) {
             input.on(Input.EventType.KEY_DOWN, (event) => this.moveJet(event, true), this);
             input.on(Input.EventType.KEY_UP, (event) => this.moveJet(event, false), this);
-        } else if (sys.platform === sys.Platform.MOBILE_BROWSER) {
+        } else if (sys.platform === sys.Platform.MOBILE_BROWSER || EDITOR) {
             input.on(Input.EventType.TOUCH_MOVE, this.touchMove, this);
             input.on(Input.EventType.TOUCH_CANCEL, this.touchCancel, this);
             input.on(Input.EventType.TOUCH_END, this.touchCancel, this);
@@ -100,6 +100,9 @@ export class Movement extends Component {
 
     protected onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D) {
         if (selfCollider.node.getComponent(Movement) && (otherCollider.node.getComponent(shipShoot) || otherCollider.node.getComponent(bulletMovement))) {
+            setTimeout(() => {
+                selfCollider.node.destroy();
+            }, 1);
             director.loadScene(LevelNameStrings.GAME_OVER);
         }
     }

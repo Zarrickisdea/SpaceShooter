@@ -9,7 +9,7 @@ export class bulletMovement extends Component {
 
         private fallingTween: any = null;
 
-        public attachedShip: shipShoot = null;
+        private attachedShip: shipShoot = null;
         
         private startTween() {
             this.fallingTween = tween(this.node)
@@ -22,6 +22,10 @@ export class bulletMovement extends Component {
                 this.fallingTween.stop();
                 this.fallingTween = null;
             }
+        }
+
+        public setAttachedShip(ship: shipShoot) {
+            this.attachedShip = ship;
         }
 
         protected onLoad() {
@@ -45,8 +49,10 @@ export class bulletMovement extends Component {
 
         protected onDisable(): void {
             this.cancelTween();
-            this.attachedShip.currentlyShooting = false;
-            this.attachedShip.bulletPool.push(this.node);
+            if (this.attachedShip) {
+                this.attachedShip.currentlyShooting = false;
+                this.attachedShip.bulletPool.push(this.node);
+            }
         }
 }
 
