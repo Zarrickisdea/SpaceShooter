@@ -36,14 +36,12 @@ export class enemySpawner extends Component {
             this.skipRow = random() < (this.skipRowChance / 100);
 
             if (this.skipRow) {
-                // console.log("skipRow: " + this.skipRow);
                 return;
             }
 
             this.skipPattern = random() < (this.skipPatternChance / 100);
 
             if (this.skipPattern) {
-                // console.log("skipPattern: " + this.skipPattern);
                 shipNumber = shipNumber / 2;
                 this.rowLayout.spacingX = this.rowLayout.spacingX * 10;
             }
@@ -65,8 +63,6 @@ export class enemySpawner extends Component {
 
         private moveShips(shiftNumber: number, direction: number) {
             const originalPos = this.rowLayout.node.position;
-            // console.log("moveShips");
-            // console.log("originalPos: " + originalPos);
 
             const targetX = originalPos.x + (shiftNumber * direction);
 
@@ -74,16 +70,12 @@ export class enemySpawner extends Component {
                 .to(this.moveDuration, { position: new Vec3(targetX, originalPos.y, 0) })
                 .call(() => {
 
-                    // console.log("olddirection: " + direction);
-
                     if (direction === -1) {
                         direction = 1;
                     }
                     else {
                         direction = -1;
                     }
-
-                    // console.log("newdirection: " + direction);
 
                     this.resetShipsXPosition(originalPos);
     
@@ -95,8 +87,6 @@ export class enemySpawner extends Component {
         }
     
         private resetShipsXPosition(originalPos: Vec3) {
-            // console.log("resetShipsPosition");
-            // console.log("originalPos: " + originalPos);
 
             tween(this.rowLayout.node)
                 .to(this.moveDuration, { position: new Vec3(0, originalPos.y, 0) })
@@ -104,7 +94,6 @@ export class enemySpawner extends Component {
         }
 
         public getNumberOfShips() {
-            // return number of active children
             let activeShips = 0;
             for (let i = 0; i < this.node.children.length; ++i) {
                 if (this.node.children[i].active) {
