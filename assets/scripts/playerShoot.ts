@@ -68,7 +68,7 @@ export class playerShoot extends Component {
         this.makePlayerBulletPool();
 
         // IF DESKTOP BROSWER OR SIMULATOR
-        if (sys.platform === sys.Platform.DESKTOP_BROWSER) {
+        if (sys.platform === sys.Platform.DESKTOP_BROWSER || EDITOR) {
             input.on(Input.EventType.KEY_DOWN, this.shoot, this);
             input.on(Input.EventType.KEY_UP, this.stopShoot, this);
         } else if (sys.platform === sys.Platform.MOBILE_BROWSER || EDITOR) {

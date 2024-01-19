@@ -1,5 +1,6 @@
 import { _decorator, Component, Node, director } from 'cc';
 import { LevelNameStrings } from './LevelNameStrings';
+import { enemySpawner } from './enemySpawner';
 const { ccclass, property } = _decorator;
 
 @ccclass('switchScenes')

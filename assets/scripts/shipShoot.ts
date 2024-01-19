@@ -12,6 +12,7 @@ export class shipShoot extends Component {
     private bulletMovement: bulletMovement = null;
     private collider: Collider2D = null;
     private hitsToKill: number = 5;
+    private parentRow: enemySpawner = null;
 
     public currentlyShooting: boolean = false;
     public bulletPool: Node[] = [];
@@ -45,15 +46,15 @@ export class shipShoot extends Component {
     }
 
     public setHitPoints(hits: number) {
-        this.hitsToKill = hits;
+        this.hitsToKill = Math.random() * hits + 5;
+        console.log("hitsToKill: " + this.hitsToKill);
     }
 
     protected onLoad() {
         this.canvas = director.getScene().getChildByName("Canvas");
+        this.parentRow = this.node.getParent().getComponent(enemySpawner);
 
         this.collider = this.node.getComponent(Collider2D);
-
-        this.hitsToKill = Math.random() * 5 + 5;
 
         for (let i = 0; i < 1; i++) {
             this.bulletPool.push(this.createBullet());
@@ -89,6 +90,7 @@ export class shipShoot extends Component {
             if (this.hitsToKill <= 0) {
                 setTimeout(() => {
                     selfCollider.node.active = false;
+                    this.parentRow.shipDestroyed();
                 }, 1);
             }
         }
