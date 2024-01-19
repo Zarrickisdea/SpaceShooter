@@ -181,7 +181,7 @@
     "_priority": 0,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 468.23161189358376,
+    "_orthoHeight": 703.1727379553467,
     "_near": 0,
     "_far": 1000,
     "_color": {
@@ -940,6 +940,9 @@
       }
     ],
     "playerShoot": null,
+    "levelOneDifficulty": 10,
+    "levelTwoDifficulty": 30,
+    "levelThreeDifficulty": 50,
     "_id": "7bWZuOoulC4bSOULRYjOmk"
   },
   {
