@@ -1,5 +1,6 @@
 import { _decorator, Component, Node, director } from 'cc';
 import { LevelNameStrings } from './LevelNameStrings';
+import { enemySpawner } from './enemySpawner';
 const { ccclass, property } = _decorator;
 
 @ccclass('switchScenes')
@@ -22,9 +23,11 @@ export class switchScenes extends Component {
     }
 
     protected onLoad() {
+        director.preloadScene(LevelNameStrings.START);
         director.preloadScene(LevelNameStrings.LEVEL_1);
         director.preloadScene(LevelNameStrings.LEVEL_2);
         director.preloadScene(LevelNameStrings.LEVEL_3);
+        director.preloadScene(LevelNameStrings.GAME_OVER);
     }
 }
 
